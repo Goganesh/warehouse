@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/general.html :: headerfiles">
+</head>
+<body>
+
+<div class="container-sm">
+    <header th:insert="fragments/general.html :: header"> </header>
+
+    <!--Заголовок-->
+    <h4>Создание/Редактирование Контрагента</h4>
+
+
+    <div class="row">
+        <label for="id-input">ID:</label>
+        <input id="id-input" name="id" type="text" value="-1" readonly="readonly"/>
+    </div>
+
+    <div class="row">
+        <label for="name-input" >Name:</label>
+        <input id="name-input" name="name" type="text" required/>
+    </div>
+
+    <div class="row">
+        <label for="phoneNumber-input" >PhoneNumber:</label>
+        <input id="phoneNumber-input" name="phoneNumber" type="number" required/>
+    </div>
+
+    <div class="row">
+        <label for="country-input">Country:</label>
+        <select id="country-input" name="country" required></select>
+    </div>
+
+    <div class="row">
+        <label for="contractorType-input">ContractorType:</label>
+        <select id="contractorType-input" name="contractorType" required></select>
+    </div>
+
+    <div class="row">
+        <button onclick="saveContractor()" type="submit">Save</button>
+    </div>
+
+
+</div>
+
+<script src="../webjars/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="../static/action.js"> </script>
+<script>
+    $(function () {
+        fillCountries();
+        fillContractorTypes();
+        fillContractor();
+    });
+</script>
+</body>
+
+</html>

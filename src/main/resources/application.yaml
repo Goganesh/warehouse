@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: never
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: false
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+    enabled: true
+    default-schema: warehouse
+  data:
+    rest:
+      basePath: "/api"
+#logging:
+#  file:
+#    name: /logs/logging.log
+#  level:
+#    root: INFO
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, logfile
+  endpoint:
+    health:
+      show-datails: always
+      show-components: always
+  health:
+    defaults:
+      enabled: true

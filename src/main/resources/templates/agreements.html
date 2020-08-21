@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/general.html :: headerfiles">
+</head>
+<body>
+
+<div class="container-sm">
+    <header th:insert="fragments/general.html :: header"> </header>
+
+    <!--Заголовок-->
+    <h4>Соглашения</h4>
+    <button id="delete-button" type="button" class="btn btn-primary">Удалить</button>
+    <button id="update-button" type="button" class="btn btn-primary">Редактировать</button>
+    <button id="create-button" type="button" class="btn btn-primary" onclick="window.location.href = '/agreements/-1';">Создать</button>
+
+    <table id="example" class="display" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>AgreementType</th>
+            <th>Contractor</th>
+            <th>Start_Date</th>
+            <th>End_Date</th>
+            <th>Price</th>
+            <th>CountPayments</th>
+            <th>SumPayments</th>
+        </tr>
+        </thead>
+    </table>
+
+</div>
+
+<script src="../webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="../static/action.js"> </script>
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "ordering": false, // for disable order column
+        "paging": true, // for show paging
+        "processing": true, // for show progress bar
+        "serverSide": true, // for process server sid
+        "filter": true, // this is for disable filter (search box)
+        "orderMulti": false, // for disable multiple column at once
+        "ajax": {
+            "url":"http://localhost:8080/api/pagination/agreements",
+            "dataSrc": "data"
+        },
+        "columns": [
+            { "data": "id" },
+            { "data": "name" },
+            { "data": "agreementType.name" },
+            { "data": "contractor.name" },
+            { "data": "startDate" },
+            { "data": "endDate" },
+            { "data": "price" },
+            { "data": "countPayments" },
+            { "data": "sumPayments" }
+        ]
+    } );
+
+    var table = $('#example').DataTable();
+
+    $('#example tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    } );
+
+    $('#update-button').click( function () {
+        var ids = $.map(table.row('.selected').data(), function (item) {
+            return item
+        });
+        window.location.href = (window.location.pathname + "/" + ids[0]);
+    } );
+
+    $('#delete-button').click( function () {
+        var ids = $.map(table.row('.selected').data(), function (item) {
+            return item
+        });
+
+        deleteContractor(ids[0]);
+        window.location.href = window.location.pathname;
+    } );
+
+} );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/general.html :: headerfiles">
+</head>
+<body>
+
+<div class="container-sm">
+    <header th:insert="fragments/general.html :: header"> </header>
+
+    <!--Заголовок-->
+    <h4>Создание/Редактирование Договора</h4>
+
+
+    <div class="row">
+        <label for="id-input">ID:</label>
+        <input id="id-input" name="id" type="text" value="-1" readonly="readonly"/>
+    </div>
+
+    <div class="row">
+        <label for="agreementType-input">AgreementType:</label>
+        <select id="agreementType-input" name="agreementType" required></select>
+    </div>
+
+    <div class="row">
+        <label for="contractor-input">Contractor:</label>
+        <select id="contractor-input" name="contractor" required></select>
+    </div>
+
+    <div class="row">
+        <label for="startDate-input" >startDate:</label>
+        <input id="startDate-input" name="startDate" type="date" required/>
+    </div>
+
+    <div class="row">
+        <label for="endDate-input" >endDate:</label>
+        <input id="endDate-input" name="endDate" type="date" required/>
+    </div>
+
+    <div class="row">
+        <label for="price-input" >Price:</label>
+        <input id="price-input" name="price" type="number" required/>
+    </div>
+
+    <div class="row">
+        <button onclick="saveAgreement()" type="submit">Save</button>
+    </div>
+
+
+
+</div>
+
+<script src="../webjars/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="../static/action.js"> </script>
+<script>
+    $(function () {
+        fillAgreementTypes();
+        fillContractors();
+        fillAgreement();
+
+
+    });
+</script>
+</body>
+
+</html>
