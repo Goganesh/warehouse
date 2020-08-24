@@ -1,9 +1,6 @@
 package com.goganesh.warehouse.domain.dto;
 
-import com.goganesh.warehouse.domain.Agreement;
-import com.goganesh.warehouse.domain.AgreementType;
-import com.goganesh.warehouse.domain.Contractor;
-import com.goganesh.warehouse.domain.User;
+import com.goganesh.warehouse.domain.*;
 import lombok.Builder;
 import lombok.Data;
 import java.util.Date;
@@ -42,20 +39,8 @@ public class AgreementDto {
                 .countPayments(agreement.getPayments().size())
                 .sumPayments(agreement.getPayments()
                         .stream()
-                        .mapToLong(payment -> payment.getAmount())
+                        .mapToLong(Payment::getAmount)
                         .sum())
                 .build();
     }
-    public static Agreement toEntity(AgreementDto agreementDto) {
-        return Agreement.builder()
-                .id(agreementDto.getId())
-                .name(agreementDto.getName())
-                .agreementType(agreementDto.getAgreementType())
-                .contractor(agreementDto.getContractor())
-                .startDate(agreementDto.getStartDate())
-                .user(agreementDto.user)
-                .price(agreementDto.getPrice())
-                .build();
-    }
-
 }

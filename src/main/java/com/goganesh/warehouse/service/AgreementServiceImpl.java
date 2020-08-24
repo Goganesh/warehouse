@@ -1,9 +1,11 @@
 package com.goganesh.warehouse.service;
 
 import com.goganesh.warehouse.domain.Agreement;
+import com.goganesh.warehouse.domain.Payment;
 import com.goganesh.warehouse.domain.User;
 import com.goganesh.warehouse.repository.AgreementRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class AgreementServiceImpl implements AgreementService {
         long price = agreement.getPrice();
         long paymentAmountSum = agreement.getPayments()
                 .stream()
-                .mapToLong(payment -> payment.getAmount())
+                .mapToLong(Payment::getAmount)
                 .sum();
         if (price < paymentAmountSum)
             isPaid = false;

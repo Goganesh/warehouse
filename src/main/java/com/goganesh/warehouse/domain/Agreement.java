@@ -1,7 +1,5 @@
 package com.goganesh.warehouse.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.goganesh.warehouse.deserializer.AgreementDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@JsonDeserialize(using = AgreementDeserializer.class)
 public class Agreement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

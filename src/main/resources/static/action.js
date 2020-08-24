@@ -70,6 +70,7 @@ function fillContractor(){
 function fillAgreement(){
     $.get(url()).done(function (data) {
         $('#id-input').attr('value', data.id);
+        $('#name-input').val(data.name);
         $('#startDate-input').val(data.startDate);
         $('#price-input').val(data.price);
     })
@@ -103,10 +104,11 @@ function deleteContractor(id){
 function saveAgreement(){
     let obj = new Object();
     obj.id = $("#id-input").attr("value");
+    obj.name = $("#name-input").val();
     obj.agreementType = $("#agreementType-input option:selected").val();
     obj.contractor = $("#contractor-input option:selected").val();
     obj.startDate = $("#startDate-input").val();
-    obj.endDate = $("#endDate-input").val();
+    obj.user = $("#user-input option:selected").val();
     obj.price = $("#price-input").val();;
 
     let json = JSON.stringify(obj);
@@ -123,19 +125,11 @@ function saveAgreement(){
 
 function saveContractor(){
     let obj = new Object();
-    let country = {
-        id: $("#country-input option:selected").val(),
-        name: $("#country-input option:selected").text()
-    };
-    let contractorType = {
-        id: $("#contractorType-input option:selected").val(),
-        name: $("#contractorType-input option:selected").text()
-    };
     obj.id = $("#id-input").attr("value");
     obj.name = $("#name-input").val();
     obj.phoneNumber = $("#phoneNumber-input").val();
-    obj.country = country;
-    obj.contractorType = contractorType;
+    obj.country = $("#country-input option:selected").val();
+    obj.contractorType = $("#contractorType-input option:selected").val();
 
     let json = JSON.stringify(obj);
     $.ajax({
