@@ -1,3 +1,7 @@
+app:
+  schedule:
+    checkAgreementPayments: "* /5 * * * *"
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
@@ -19,6 +23,18 @@ spring:
   data:
     rest:
       basePath: "/api"
+  mail:
+    host: smtp.mail.ru
+    port: 465
+    # логин и пароль для почты, через которую сервер отправляет письма
+    username: ${email.server.user}
+    password: ${email.server.password}
+    protocol: smtps
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
 #logging:
 #  file:
 #    name: /logs/logging.log

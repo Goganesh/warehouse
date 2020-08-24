@@ -2,12 +2,10 @@ package com.goganesh.warehouse.domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.goganesh.warehouse.deserializer.AgreementDeserializer;
-import com.goganesh.warehouse.deserializer.ContractorDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +22,7 @@ public class Agreement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -37,8 +36,9 @@ public class Agreement {
     @Column(name = "start_date")
     private Date startDate;
 
-    @Column(name = "end_date")
-    private Date endDate;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "price")
     private long price;

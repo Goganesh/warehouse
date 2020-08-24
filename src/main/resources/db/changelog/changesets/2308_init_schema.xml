@@ -6,18 +6,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <!--<changeSet author="Basiladze-GT" id="drop_databasechangelog">
-        <sql>
-            drop schema warehouse CASCADE
-        </sql>
-    </changeSet>-->
-
-    <changeSet author="Basiladze-GT" id="add_schema">
-        <sql>
-            create schema if not exists warehouse
-        </sql>
-    </changeSet>
-
     <changeSet author="Basiladze-GT" id="add_dict_country">
         <createTable schemaName="warehouse" tableName="countries">
             <column autoIncrement="true" name="id" type="INT">
@@ -75,43 +63,33 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Basiladze-GT" id="load_data_contractor_types">
-        <loadData schemaName="warehouse" tableName="contractor_types" encoding="UTF-8"
-                  file="classpath:db/changelog/data/contractor_types.csv"
-                  quotchar="'" separator=";" >
-            <column header="id" name="id" type="NUMERIC"/>
-            <column header="name" name="name" type="STRING"/>
-        </loadData>
-    </changeSet>
-
-    <changeSet author="Basiladze-GT" id="load_data_agreement_types">
-        <loadData schemaName="warehouse" tableName="agreement_types" encoding="UTF-8"
-                  file="classpath:db/changelog/data/agreement_types.csv"
-                  quotchar="'" separator=";" >
-            <column header="id" name="id" type="NUMERIC"/>
-            <column header="name" name="name" type="STRING"/>
-        </loadData>
-    </changeSet>
-
-    <changeSet author="Basiladze-GT" id="load_data_countries">
-        <loadData schemaName="warehouse" tableName="countries" encoding="UTF-8"
-                  file="classpath:db/changelog/data/countries.csv"
-                  quotchar="'" separator=";" >
-            <column header="id" name="id" type="NUMERIC"/>
-            <column header="name" name="name" type="STRING"/>
-        </loadData>
-    </changeSet>
-
-    <changeSet author="Basiladze-GT" id="load_data_contractors">
-        <loadData schemaName="warehouse" tableName="contractors" encoding="UTF-8"
-                  file="classpath:db/changelog/data/contractors.csv"
-                  quotchar="'" separator=";" >
-            <column header="id" name="id" type="NUMERIC"/>
-            <column header="name" name="name" type="STRING"/>
-            <column header="phone_number" name="phone_number" type="NUMERIC"/>
-            <column header="country_id" name="country_id" type="NUMERIC"/>
-            <column header="contractor_type_id" name="contractor_type_id" type="NUMERIC"/>
-        </loadData>
+    <changeSet author="Basiladze-GT" id="add_entity_users">
+        <createTable schemaName="warehouse" tableName="users">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patronymic" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enabled" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
     </changeSet>
 
     <changeSet author="Basiladze-GT" id="add_entity_agreement">
@@ -135,10 +113,12 @@
             <column name="start_date" type="date">
                 <constraints nullable="false"/>
             </column>
-            <column name="end_date" type="date">
-                <constraints nullable="false"/>
+            <column name="user_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_user_id"
+                             references="warehouse.users(id)"/>
             </column>
-            <column name="price" type="double">
+            <column name="price" type="int">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -163,31 +143,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-
-    <changeSet author="Basiladze-GT" id="load_data_agreements">
-        <loadData schemaName="warehouse" tableName="agreements" encoding="UTF-8"
-                  file="classpath:db/changelog/data/agreements.csv"
-                  quotchar="'" separator=";" >
-            <column header="id" name="id" type="NUMERIC"/>
-            <column header="name" name="name" type="STRING"/>
-            <column header="agreement_type_id" name="agreement_type_id" type="NUMERIC"/>
-            <column header="contractor_id" name="contractor_id" type="NUMERIC"/>
-            <column header="start_date" name="start_date" type="DATE"/>
-            <column header="end_date" name="end_date" type="DATE"/>
-            <column header="price" name="price" type="NUMERIC"/>
-        </loadData>
-    </changeSet>
-
-    <changeSet author="Basiladze-GT" id="load_data_payments">
-        <loadData schemaName="warehouse" tableName="payments" encoding="UTF-8"
-                  file="classpath:db/changelog/data/payments.csv"
-                  quotchar="'" separator=";" >
-            <column header="id" name="id" type="NUMERIC"/>
-            <column header="agreement_id" name="agreement_id" type="NUMERIC"/>
-            <column header="date" name="date" type="DATE"/>
-            <column header="amount" name="amount" type="NUMERIC"/>
-        </loadData>
     </changeSet>
 
 </databaseChangeLog>

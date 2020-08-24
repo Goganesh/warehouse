@@ -32,8 +32,8 @@
     </div>
 
     <div class="row">
-        <label for="endDate-input" >endDate:</label>
-        <input id="endDate-input" name="endDate" type="date" required/>
+        <label for="user-input" >User:</label>
+        <select id="user-input" name="contractor" required></select>
     </div>
 
     <div class="row">
@@ -57,6 +57,7 @@
     $(function () {
         fillAgreementTypes();
         fillContractors();
+        fillUsers();
         fillAgreement();
 
 

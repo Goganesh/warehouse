@@ -13,6 +13,15 @@ function fillCountries(){
     })
 }
 
+function fillUsers(){
+    $.get('/api/users').done(function (data) {
+        var dataa = data._embedded.users;
+        $.each(dataa, function(index, value){
+            $('#user-input').append(`<option value=${value.id}>${value.name}</option>`);
+        });
+    })
+}
+
 function fillAgreementTypes(){
     $.get('/api/agreement_types').done(function (data) {
         var dataa = data._embedded.agreement_types;
@@ -62,7 +71,6 @@ function fillAgreement(){
     $.get(url()).done(function (data) {
         $('#id-input').attr('value', data.id);
         $('#startDate-input').val(data.startDate);
-        $('#endDate-input').val(data.endDate);
         $('#price-input').val(data.price);
     })
 
@@ -74,6 +82,11 @@ function fillAgreement(){
     $.get(url() + "/contractor").done(function (data) {
             let name = '#contractor-input option[value=' + data.id + ']';
             $(name).attr('selected', true);
+    })
+
+    $.get(url() + "/user").done(function (data) {
+                let name = '#user-input option[value=' + data.id + ']';
+                $(name).attr('selected', true);
     })
 }
 

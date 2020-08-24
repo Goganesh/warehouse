@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="Basiladze-GT" id="load_data_contractor_types">
+        <loadData schemaName="warehouse" tableName="contractor_types" encoding="UTF-8"
+                  file="classpath:db/changelog/data/contractor_types.csv"
+                  quotchar="'" separator=";" >
+            <column header="id" name="id" type="NUMERIC"/>
+            <column header="name" name="name" type="STRING"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet author="Basiladze-GT" id="load_data_agreement_types">
+        <loadData schemaName="warehouse" tableName="agreement_types" encoding="UTF-8"
+                  file="classpath:db/changelog/data/agreement_types.csv"
+                  quotchar="'" separator=";" >
+            <column header="id" name="id" type="NUMERIC"/>
+            <column header="name" name="name" type="STRING"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet author="Basiladze-GT" id="load_data_countries">
+        <loadData schemaName="warehouse" tableName="countries" encoding="UTF-8"
+                  file="classpath:db/changelog/data/countries.csv"
+                  quotchar="'" separator=";" >
+            <column header="id" name="id" type="NUMERIC"/>
+            <column header="name" name="name" type="STRING"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet author="Basiladze-GT" id="load_data_contractors">
+        <loadData schemaName="warehouse" tableName="contractors" encoding="UTF-8"
+                  file="classpath:db/changelog/data/contractors.csv"
+                  quotchar="'" separator=";" >
+            <column header="id" name="id" type="NUMERIC"/>
+            <column header="name" name="name" type="STRING"/>
+            <column header="phone_number" name="phone_number" type="NUMERIC"/>
+            <column header="country_id" name="country_id" type="NUMERIC"/>
+            <column header="contractor_type_id" name="contractor_type_id" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet author="Basiladze-GT" id="load_data_users">
+        <loadData schemaName="warehouse" tableName="users" encoding="UTF-8"
+                  file="classpath:db/changelog/data/users.csv"
+                  quotchar="'" separator=";" >
+            <column header="id" name="id" type="NUMERIC"/>
+            <column header="username" name="username" type="STRING"/>
+            <column header="password" name="password" type="STRING"/>
+            <column header="surname" name="surname" type="STRING"/>
+            <column header="name" name="name" type="STRING"/>
+            <column header="patronymic" name="patronymic" type="STRING"/>
+            <column header="email" name="email" type="STRING"/>
+            <column header="enabled" name="enabled" type="BOOLEAN"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet author="Basiladze-GT" id="load_data_agreements">
+        <loadData schemaName="warehouse" tableName="agreements" encoding="UTF-8"
+                  file="classpath:db/changelog/data/agreements.csv"
+                  quotchar="'" separator=";" >
+            <column header="id" name="id" type="NUMERIC"/>
+            <column header="name" name="name" type="STRING"/>
+            <column header="agreement_type_id" name="agreement_type_id" type="NUMERIC"/>
+            <column header="contractor_id" name="contractor_id" type="NUMERIC"/>
+            <column header="start_date" name="start_date" type="DATE"/>
+            <column header="user_id" name="user_id" type="NUMERIC"/>
+            <column header="price" name="price" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet author="Basiladze-GT" id="load_data_payments">
+        <loadData schemaName="warehouse" tableName="payments" encoding="UTF-8"
+                  file="classpath:db/changelog/data/payments.csv"
+                  quotchar="'" separator=";" >
+            <column header="id" name="id" type="NUMERIC"/>
+            <column header="agreement_id" name="agreement_id" type="NUMERIC"/>
+            <column header="date" name="date" type="DATE"/>
+            <column header="amount" name="amount" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

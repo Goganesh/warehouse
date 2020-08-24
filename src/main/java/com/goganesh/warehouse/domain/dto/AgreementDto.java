@@ -3,6 +3,7 @@ package com.goganesh.warehouse.domain.dto;
 import com.goganesh.warehouse.domain.Agreement;
 import com.goganesh.warehouse.domain.AgreementType;
 import com.goganesh.warehouse.domain.Contractor;
+import com.goganesh.warehouse.domain.User;
 import lombok.Builder;
 import lombok.Data;
 import java.util.Date;
@@ -21,7 +22,7 @@ public class AgreementDto {
 
     private Date startDate;
 
-    private Date endDate;
+    private User user;
 
     private long price;
 
@@ -36,7 +37,8 @@ public class AgreementDto {
                 .agreementType(agreement.getAgreementType())
                 .contractor(agreement.getContractor())
                 .startDate(agreement.getStartDate())
-                .endDate(agreement.getEndDate())
+                .user(agreement.getUser())
+                .price(agreement.getPrice())
                 .countPayments(agreement.getPayments().size())
                 .sumPayments(agreement.getPayments()
                         .stream()
@@ -51,7 +53,7 @@ public class AgreementDto {
                 .agreementType(agreementDto.getAgreementType())
                 .contractor(agreementDto.getContractor())
                 .startDate(agreementDto.getStartDate())
-                .endDate(agreementDto.getEndDate())
+                .user(agreementDto.user)
                 .price(agreementDto.getPrice())
                 .build();
     }
