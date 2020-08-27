@@ -12,49 +12,66 @@
 
 
     <div class="row">
-        <label for="id-input">ID:</label>
-        <input id="id-input" name="id" type="text" value="-1" readonly="readonly"/>
+        <label for="id-input" hidden>ID:</label>
+        <input id="id-input" name="id" type="hidden" value="-1" readonly="readonly"/>
     </div>
 
     <div class="row">
-        <label for="name-input" >name:</label>
+        <label for="name-input" >Наименование:</label>
         <input id="name-input" name="name" type="text" required/>
     </div>
 
     <div class="row">
-        <label for="agreementType-input">AgreementType:</label>
+        <label for="agreementType-input">Тип соглашения:</label>
         <select id="agreementType-input" name="agreementType" required></select>
     </div>
 
     <div class="row">
-        <label for="contractor-input">Contractor:</label>
+        <label for="contractor-input">Контрагент:</label>
         <select id="contractor-input" name="contractor" required></select>
     </div>
 
     <div class="row">
-        <label for="startDate-input" >startDate:</label>
+        <label for="startDate-input" >Дата подписания:</label>
         <input id="startDate-input" name="startDate" type="date" required/>
     </div>
 
     <div class="row">
-        <label for="user-input" >User:</label>
+        <label for="user-input" >Ответственный:</label>
         <select id="user-input" name="contractor" required></select>
     </div>
 
     <div class="row">
-        <label for="price-input" >Price:</label>
+        <label for="price-input" >Сумма договора:</label>
         <input id="price-input" name="price" type="number" required/>
     </div>
 
     <div class="row">
-        <button onclick="saveAgreement()" type="submit">Save</button>
+        <button onclick="saveAgreement()" type="submit">Сохранить</button>
     </div>
 
+    <h4>Платежи</h4>
+    <button id="delete-button" type="button" class="btn btn-primary">Удалить</button>
+    <button id="update-button" type="button" class="btn btn-primary">Редактировать</button>
+    <button id="create-button" type="button" class="btn btn-primary" onclick="window.location.href = window.location.pathname + '/payments/-1';">Создать</button>
+
+
+    <table id="example" class="display" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Наименование</th>
+            <th>Дата платежа</th>
+            <th>Сумма платежа</th>
+        </tr>
+        </thead>
+    </table>
 
 
 </div>
 
 <script src="../webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script src="../static/action.js"> </script>
@@ -64,6 +81,54 @@
         fillContractors();
         fillUsers();
         fillAgreement();
+
+        $('#example').DataTable( {
+            "ordering": false, // for disable order column
+            "paging": true, // for show paging
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server sid
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": url2(),
+                "dataSrc": "data"
+            },
+            "columns": [
+                { "data": "id",
+                  "visible": false
+                },
+                { "data": "name" },
+                { "data": "date" },
+                { "data": "amount" }
+            ]
+        });
+
+        var table = $('#example').DataTable();
+
+        $('#example tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        } );
+
+        $('#update-button').click( function () {
+            var ids = $.map(table.row('.selected').data(), function (item) {
+                return item
+            });
+            window.location.href = (window.location.pathname + "/payments/" + ids[0]);
+        } );
+
+        $('#delete-button').click( function () {
+            var ids = $.map(table.row('.selected').data(), function (item) {
+                return item
+            });
+            deletePayment(ids[0]);
+            window.location.href = window.location.pathname;
+        });
     });
 </script>
 </body>

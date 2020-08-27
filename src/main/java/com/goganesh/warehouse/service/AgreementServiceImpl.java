@@ -4,6 +4,7 @@ import com.goganesh.warehouse.domain.Agreement;
 import com.goganesh.warehouse.domain.Payment;
 import com.goganesh.warehouse.domain.User;
 import com.goganesh.warehouse.repository.AgreementRepository;
+import com.goganesh.warehouse.repository.PaymentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.List;
 public class AgreementServiceImpl implements AgreementService {
 
     private final AgreementRepository agreementRepository;
+    private final PaymentRepository paymentRepository;
 
     @Override
     public List<Agreement> findExpiredAgreementsByUser(User user) {
@@ -24,7 +26,7 @@ public class AgreementServiceImpl implements AgreementService {
     private boolean isPaid(Agreement agreement){
         boolean isPaid = true;
         long price = agreement.getPrice();
-        long paymentAmountSum = agreement.getPayments()
+        long paymentAmountSum = paymentRepository.findByAgreementId(agreement.getId())
                 .stream()
                 .mapToLong(Payment::getAmount)
                 .sum();

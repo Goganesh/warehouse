@@ -20,6 +20,9 @@ public class PageController {
     @GetMapping("/agreements/{id}")
     public String getAgreementPage(){ return "agreement"; }
 
+    @GetMapping("/agreements/{id}/payments/{id}")
+    public String getAgreementPaymentPage(){ return "payment"; }
+
     @GetMapping("/contractors/{id}")
     public String getContractorPage(){
         return "contractor";

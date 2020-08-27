@@ -2,6 +2,7 @@ package com.goganesh.warehouse.service;
 
 import com.goganesh.warehouse.domain.Agreement;
 import com.goganesh.warehouse.domain.DataTablesPage;
+import com.goganesh.warehouse.domain.Payment;
 import com.goganesh.warehouse.domain.dto.AgreementDto;
 import com.goganesh.warehouse.exception.PathIsNotAccepted;
 import com.goganesh.warehouse.repository.*;
@@ -22,6 +23,26 @@ public class DataTablesPaginationService {
     private final ContractorRepository contractorRepository;
     private final AgreementTypeRepository agreementTypeRepository;
     private final AgreementRepository agreementRepository;
+    private final PaymentRepository paymentRepository;
+
+    public DataTablesPage getPageForPayments(String id, Map<String,String> allParams){
+        int start = Integer.parseInt(allParams.get("start"));
+        int length = Integer.parseInt(allParams.get("length"));
+        String search = allParams.get("search[value]");
+        long draw = Long.parseLong(allParams.get("draw"));
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "name");
+        PageRequest pageRequest = PageRequest.of((start+1)/length, length, sort);
+
+        Agreement agreement = agreementRepository.findById(Long.parseLong(id)).get();
+        Page<Payment> page = paymentRepository.findAllByAgreementAndNameContaining(agreement, search, pageRequest);
+
+        DataTablesPage dataTablesPage = new DataTablesPage();
+        dataTablesPage.setData(page.getContent());
+        fillDataTablesPage(dataTablesPage, page);
+        dataTablesPage.setDraw(draw);
+        return dataTablesPage;
+    }
 
     public DataTablesPage getPage(String path, Map<String,String> allParams){
         int start = Integer.parseInt(allParams.get("start"));

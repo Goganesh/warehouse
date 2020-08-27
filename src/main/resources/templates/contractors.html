@@ -18,10 +18,10 @@
         <thead>
         <tr>
             <th>id</th>
-            <th>Name</th>
-            <th>PhoneNumber</th>
-            <th>Country</th>
-            <th>ContractorType</th>
+            <th>Наименование</th>
+            <th>Телефон</th>
+            <th>Страна</th>
+            <th>Тип контрагента</th>
         </tr>
         </thead>
     </table>
@@ -47,7 +47,9 @@ $(document).ready(function() {
             "dataSrc": "data"
         },
         "columns": [
-            { "data": "id" },
+            { "data": "id",
+              "visible": false
+            },
             { "data": "name" },
             { "data": "phoneNumber" },
             { "data": "country.name" },
@@ -79,7 +81,7 @@ $(document).ready(function() {
             return item
         });
 
-        deleteContractor(ids[0]);
+        deleteEntity(ids[0]);
         window.location.href = window.location.pathname;
     } );
 

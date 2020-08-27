@@ -17,14 +17,14 @@
         <thead>
         <tr>
             <th>id</th>
-            <th>Name</th>
-            <th>AgreementType</th>
-            <th>Contractor</th>
-            <th>Start_Date</th>
-            <th>User</th>
-            <th>Price</th>
-            <th>CountPayments</th>
-            <th>SumPayments</th>
+            <th>Наименование</th>
+            <th>Тип соглашения</th>
+            <th>Контрагент</th>
+            <th>Дата подписания</th>
+            <th>Ответственный</th>
+            <th>Сумма договора</th>
+            <th>Кол-во платежей</th>
+            <th>Сумма платежей</th>
         </tr>
         </thead>
     </table>
@@ -50,7 +50,9 @@ $(document).ready(function() {
             "dataSrc": "data"
         },
         "columns": [
-            { "data": "id" },
+            { "data": "id",
+              "visible": false
+            },
             { "data": "name" },
             { "data": "agreementType.name" },
             { "data": "contractor.name" },
@@ -60,7 +62,7 @@ $(document).ready(function() {
             { "data": "countPayments" },
             { "data": "sumPayments" }
         ]
-    } );
+    });
 
     var table = $('#example').DataTable();
 
@@ -86,7 +88,7 @@ $(document).ready(function() {
             return item
         });
 
-        deleteContractor(ids[0]);
+        deleteEntity(ids[0]);
         window.location.href = window.location.pathname;
     } );
 

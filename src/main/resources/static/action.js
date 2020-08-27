@@ -4,6 +4,12 @@ function url() {
     return url;
 }
 
+function url2() {
+    let currentUrl = window.location.pathname;
+    let url = '/api/pagination' + currentUrl + '/payments';
+    return url;
+}
+
 function fillCountries(){
     $.get('/api/countries').done(function (data) {
         var dataa = data._embedded.countries;
@@ -49,6 +55,21 @@ function fillContractorTypes(){
     })
 }
 
+function fillPayment(){
+    $.get(url()).done(function (data) {
+        $('#id-input').attr('value', data.id);
+        $('#name-input').val(data.name);
+        let date = new Date(Date.parse(data.date));
+        let payDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+        $('#date-input').val(payDate);
+        $('#amount-input').val(data.amount);
+
+        $.get("http://localhost:8080/api/payments/3/agreement").done(function (data) {
+                    $('#agreement-input').val(data.id);
+            })
+    })
+}
+
 function fillContractor(){
     $.get(url()).done(function (data) {
         $('#id-input').attr('value', data.id);
@@ -71,7 +92,9 @@ function fillAgreement(){
     $.get(url()).done(function (data) {
         $('#id-input').attr('value', data.id);
         $('#name-input').val(data.name);
-        $('#startDate-input').val(data.startDate);
+        let date = new Date(Date.parse(data.startDate));
+        let startDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+        $('#startDate-input').val(startDate);
         $('#price-input').val(data.price);
     })
 
@@ -91,9 +114,17 @@ function fillAgreement(){
     })
 }
 
-function deleteContractor(id){
-    let path = url() + "/" + id
+function deleteEntity(id){
+    let path = url() + "/" + id;
+    $.ajax({
+        url: path,
+        type: "DELETE",
+        contentType: 'application/json'
+    })
+}
 
+function deletePayment(id){
+    let path = "http://localhost:8080/api/payments/" + id;
     $.ajax({
         url: path,
         type: "DELETE",
@@ -109,7 +140,7 @@ function saveAgreement(){
     obj.contractor = $("#contractor-input option:selected").val();
     obj.startDate = $("#startDate-input").val();
     obj.user = $("#user-input option:selected").val();
-    obj.price = $("#price-input").val();;
+    obj.price = $("#price-input").val();
 
     let json = JSON.stringify(obj);
     $.ajax({
@@ -119,6 +150,26 @@ function saveAgreement(){
         contentType: 'application/json',
         success: function(data, status, xhr){
             window.location.replace("/agreements");
+        }
+    })
+}
+
+function savePayment(){
+    let obj = new Object();
+    obj.id = $("#id-input").attr("value");
+    obj.agreement = $("#agreement-input").val();
+    obj.name = $("#name-input").val();
+    obj.date = $("#date-input").val();
+    obj.amount = $("#amount-input").val();
+
+    let json = JSON.stringify(obj);
+    $.ajax({
+        url: "http://localhost:8080/api/payments",
+        type: "POST",
+        data: json,
+        contentType: 'application/json',
+        success: function(data, status, xhr){
+            window.location.replace("/agreements/" + obj.agreement);
         }
     })
 }
@@ -141,4 +192,10 @@ function saveContractor(){
             window.location.replace("/contractors");
         }
     })
+}
+
+function parseUrl() {
+    let url = window.location.pathname;
+    let pathArray = url.split("/");
+    $('#agreement-input').val(pathArray[2]);
 }

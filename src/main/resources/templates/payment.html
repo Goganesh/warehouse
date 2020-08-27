@@ -8,12 +8,14 @@
     <header th:insert="fragments/general.html :: header"> </header>
 
     <!--Заголовок-->
-    <h4>Создание/Редактирование Контрагента</h4>
+    <h4>Создание/Редактирование Платежа</h4>
 
 
     <div class="row">
-        <label for="id-input" hidden>ID:</label>
-        <input id="id-input" name="id" type="hidden" value="-1" readonly="readonly"/>
+        <div class="mb-3">
+            <label for="id-input" hidden>ID:</label>
+            <input id="id-input" name="id" type="hidden" value="-1" readonly="readonly"/>
+        </div>
     </div>
 
     <div class="row">
@@ -22,36 +24,35 @@
     </div>
 
     <div class="row">
-        <label for="phoneNumber-input" >Телефон:</label>
-        <input id="phoneNumber-input" name="phoneNumber" type="number" required/>
+        <label for="agreement-input" hidden>Agreement:</label>
+        <input id="agreement-input" name="agreement" type="hidden" readonly="readonly"/>
     </div>
 
     <div class="row">
-        <label for="country-input">Страна:</label>
-        <select id="country-input" name="country" required></select>
+        <label for="date-input" >Дата платежа:</label>
+        <input id="date-input" name="date" type="date" required/>
     </div>
 
     <div class="row">
-        <label for="contractorType-input">Тип контрагента:</label>
-        <select id="contractorType-input" name="contractorType" required></select>
+        <label for="amount-input" >Сумма платежа:</label>
+        <input id="amount-input" name="amount" type="number" required/>
     </div>
 
     <div class="row">
-        <button onclick="saveContractor()" type="submit">Сохранить</button>
+        <button onclick="savePayment()" type="submit">Сохранить</button>
     </div>
 
 
 </div>
 
-<script src="../webjars/jquery/3.5.1/jquery.min.js"></script>
+<script src="../../../webjars/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<script src="../static/action.js"> </script>
+<script src="../../../static/action.js"> </script>
 <script>
     $(function () {
-        fillCountries();
-        fillContractorTypes();
-        fillContractor();
+        fillPayment();
+        parseUrl();
     });
 </script>
 </body>

@@ -14,7 +14,7 @@
         <thead>
         <tr>
             <th>id</th>
-            <th>Name</th>
+            <th>Наименование</th>
         </tr>
         </thead>
     </table>
@@ -40,7 +40,9 @@ $(document).ready(function() {
             "dataSrc": "data"
         },
         "columns": [
-            { "data": "id" },
+            { "data": "id",
+              "visible": false
+            },
             { "data": "name" }
         ]
     } );

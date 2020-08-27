@@ -15,6 +15,13 @@ public class PaginationController {
 
     private final DataTablesPaginationService paginationService;
 
+    @GetMapping("api/pagination/agreements/{id}/payments")
+    public DataTablesPage getPaymentsPagination(@PathVariable("id") String id, @RequestParam Map<String,String> allParams) {
+        return paginationService.getPageForPayments(id, allParams);
+    }
+
+
+
     @GetMapping("api/pagination/{path}")
     public DataTablesPage getPagination(@PathVariable("path") String path, @RequestParam Map<String,String> allParams) {
         return paginationService.getPage(path, allParams);
