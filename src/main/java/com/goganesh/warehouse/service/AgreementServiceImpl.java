@@ -8,6 +8,8 @@ import com.goganesh.warehouse.repository.PaymentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,7 +22,13 @@ public class AgreementServiceImpl implements AgreementService {
     @Override
     public List<Agreement> findExpiredAgreementsByUser(User user) {
         List<Agreement> userAgreements = agreementRepository.findByUser(user);
-        return null;
+        List<Agreement> expiredAgreements = new ArrayList<>();
+        for(Agreement agreement : userAgreements){
+            if(!isPaid(agreement)){
+                expiredAgreements.add(agreement);
+            }
+        }
+        return expiredAgreements;
     }
 
     private boolean isPaid(Agreement agreement){
@@ -30,8 +38,9 @@ public class AgreementServiceImpl implements AgreementService {
                 .stream()
                 .mapToLong(Payment::getAmount)
                 .sum();
-        if (price < paymentAmountSum)
+        if (price > paymentAmountSum) {
             isPaid = false;
+        }
 
         return isPaid;
     }

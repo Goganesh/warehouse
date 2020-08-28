@@ -15,7 +15,7 @@ public class ScheduleService {
     private final UserRepository userRepository;
     private final MailService mailService;
 
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 0 0 * * *") /*(initialDelay = 2000, fixedRate = 30000)*/
     public void checkExpiredPaymentsForAgreements(){
         List<User> users = userRepository.findAll();
         for(User user : users){
