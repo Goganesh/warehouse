@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "authorities")
+@Table(schema = "warehouse", name = "authorities")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Authority {
@@ -16,7 +16,9 @@ public class Authority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String username;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     private String authority;
 }

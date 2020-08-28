@@ -28,17 +28,17 @@ public class PageController {
         return "contractor";
     }
 
-    @GetMapping("countries")
+    @GetMapping("/countries")
     public String getCountiesPage(){
         return "countries";
     }
 
-    @GetMapping("agreement_types")
+    @GetMapping("/agreement_types")
     public String getAgreementTypesPage(){
         return "agreement_types";
     }
 
-    @GetMapping("contractor_types")
+    @GetMapping("/contractor_types")
     public String getContractorTypesPage(){
         return "contractor_types";
     }

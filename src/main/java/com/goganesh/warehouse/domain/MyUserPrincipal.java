@@ -1,12 +1,9 @@
-package com.goganesh.warehouse.configuration;
+package com.goganesh.warehouse.domain;
 
-import com.goganesh.warehouse.domain.Authority;
-import com.goganesh.warehouse.domain.User;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.*;
 
 @AllArgsConstructor

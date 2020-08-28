@@ -92,6 +92,22 @@
         </createTable>
     </changeSet>
 
+    <changeSet author="Basiladze-GT" id="add_entity_authorities">
+        <createTable schemaName="warehouse" tableName="authorities">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"
+                             foreignKeyName="fk_user_id"
+                             references="warehouse.users(id)"/>
+            </column>
+            <column name="authority" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
     <changeSet author="Basiladze-GT" id="add_entity_agreement">
         <createTable schemaName="warehouse" tableName="agreements">
             <column autoIncrement="true" name="id" type="INT">

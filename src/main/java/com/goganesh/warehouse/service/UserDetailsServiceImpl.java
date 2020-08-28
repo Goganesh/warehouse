@@ -1,6 +1,6 @@
 package com.goganesh.warehouse.service;
 
-import com.goganesh.warehouse.configuration.MyUserPrincipal;
+import com.goganesh.warehouse.domain.MyUserPrincipal;
 import com.goganesh.warehouse.domain.Authority;
 import com.goganesh.warehouse.domain.User;
 import com.goganesh.warehouse.repository.AuthorityRepository;
@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -26,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
 
-        List<Authority> authorities = authorityRepository.findByUsername(username);
+        List<Authority> authorities = authorityRepository.findByUser(user);
 
         return new MyUserPrincipal(user, authorities);
     }
