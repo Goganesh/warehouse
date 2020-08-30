@@ -20,8 +20,6 @@ public class PaginationController {
         return paginationService.getPageForPayments(id, allParams);
     }
 
-
-
     @GetMapping("api/pagination/{path}")
     public DataTablesPage getPagination(@PathVariable("path") String path, @RequestParam Map<String,String> allParams) {
         return paginationService.getPage(path, allParams);

@@ -7,39 +7,42 @@
 <div class="container-sm">
     <header th:insert="fragments/general.html :: header"> </header>
 
-    <!--Заголовок-->
-    <h4>Создание/Редактирование Контрагента</h4>
-
+    <h4 class="mb-3">Создание/Редактирование Контрагента</h4>
 
     <div class="row">
-        <label for="id-input" hidden>ID:</label>
-        <input id="id-input" name="id" type="hidden" value="-1" readonly="readonly"/>
-    </div>
+        <div class="container-sm">
+            <div class="mb-3">
+                <label for="id-input" hidden>ID:</label>
+                <input id="id-input" name="id" type="hidden" value="-1" readonly="readonly"/>
+            </div>
 
-    <div class="row">
-        <label for="name-input" >Наименование:</label>
-        <input id="name-input" name="name" type="text" required/>
-    </div>
+            <div class="mb-3">
+                <label for="name-input">Наименование:</label>
+                <input id="name-input" class="form-control" placeholder="ООО Рога и Копыта"
+                       name="name" type="text" required/>
+            </div>
 
-    <div class="row">
-        <label for="phoneNumber-input" >Телефон:</label>
-        <input id="phoneNumber-input" name="phoneNumber" type="number" required/>
-    </div>
+            <div class="mb-3">
+                <label for="phoneNumber-input" >Номер телефона:</label>
+                <input id="phoneNumber-input" class="form-control" type="number"
+                       data-format="US" required>
+            </div>
 
-    <div class="row">
-        <label for="country-input">Страна:</label>
-        <select id="country-input" name="country" required></select>
-    </div>
+            <div class="mb-3">
+                <label for="country-input">Страна:</label>
+                <select id="country-input" class="custom-select d-block w-100"
+                        name="country" required></select>
+            </div>
 
-    <div class="row">
-        <label for="contractorType-input">Тип контрагента:</label>
-        <select id="contractorType-input" name="contractorType" required></select>
-    </div>
+            <div class="mb-3">
+                <label for="contractorType-input">Тип контрагента:</label>
+                <select id="contractorType-input" class="custom-select d-block w-100"
+                        name="contractorType" required></select>
+            </div>
 
-    <div class="row">
-        <button onclick="saveContractor()" type="submit">Сохранить</button>
+            <button onclick="saveContractor()" class="btn btn-primary" type="submit">Сохранить</button>
+        </div>
     </div>
-
 
 </div>
 

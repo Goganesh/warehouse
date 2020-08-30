@@ -8,39 +8,41 @@
     <header th:insert="fragments/general.html :: header"> </header>
 
     <!--Заголовок-->
-    <h4>Создание/Редактирование Платежа</h4>
-
-
-    <div class="row">
-        <label for="id-input" hidden>ID:</label>
-        <input id="id-input" name="id" type="hidden" value="-1" readonly="readonly"/>
-    </div>
+    <h4 class="mb-3">Создание/Редактирование Платежа</h4>
 
     <div class="row">
-        <label for="name-input" >Наименование:</label>
-        <input id="name-input" name="name" type="text" required/>
+        <div class="container-sm">
+            <div class="mb-3">
+                <label for="id-input" hidden>ID:</label>
+                <input id="id-input" name="id" type="hidden" value="-1" readonly="readonly"/>
+            </div>
+
+            <div class="mb-3">
+                <label for="agreement-input" hidden>Agreement:</label>
+                <input id="agreement-input" name="agreement" type="hidden" readonly="readonly"/>
+            </div>
+
+            <div class="mb-3">
+                <label for="name-input">Наименование:</label>
+                <input id="name-input" class="form-control" placeholder="Полный платеж за договор №ХХХ"
+                       name="name" type="text" required/>
+            </div>
+
+            <div class="mb-3">
+                <label for="date-input">Дата платежа:</label>
+                <input id="date-input" class="form-control"
+                           name="date" type="date" required/>
+            </div>
+
+            <div class="mb-3">
+                <label for="amount-input" >Сумма платежа:</label>
+                <input id="amount-input" class="form-control" placeholder="10000"
+                       name="amount" type="number" required/>
+            </div>
+
+            <button onclick="savePayment()" class="btn btn-primary" type="submit">Сохранить</button>
+        </div>
     </div>
-
-    <div class="row">
-        <label for="agreement-input" hidden>Agreement:</label>
-        <input id="agreement-input" name="agreement" type="hidden" readonly="readonly"/>
-    </div>
-
-    <div class="row">
-        <label for="date-input" >Дата платежа:</label>
-        <input id="date-input" name="date" type="date" required/>
-    </div>
-
-    <div class="row">
-        <label for="amount-input" >Сумма платежа:</label>
-        <input id="amount-input" name="amount" type="number" required/>
-    </div>
-
-    <div class="row">
-        <button onclick="savePayment()" type="submit">Сохранить</button>
-    </div>
-
-
 </div>
 
 <script src="../../../webjars/jquery/3.5.1/jquery.min.js"></script>

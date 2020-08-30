@@ -142,6 +142,11 @@ function saveAgreement(){
     obj.user = $("#user-input option:selected").val();
     obj.price = $("#price-input").val();
 
+    if(obj.name == '' || obj.startDate == '' || obj.price == ''){
+            alert('Не заполнены обязательные атрибуты');
+            return;
+    }
+
     let json = JSON.stringify(obj);
     $.ajax({
         url: "http://localhost:8080/api/agreements",
@@ -162,6 +167,11 @@ function savePayment(){
     obj.date = $("#date-input").val();
     obj.amount = $("#amount-input").val();
 
+    if(obj.name == '' || obj.date == '' || obj.amount == ''){
+        alert('Не заполнены обязательные атрибуты');
+        return;
+    }
+
     let json = JSON.stringify(obj);
     $.ajax({
         url: "http://localhost:8080/api/payments",
@@ -181,6 +191,11 @@ function saveContractor(){
     obj.phoneNumber = $("#phoneNumber-input").val();
     obj.country = $("#country-input option:selected").val();
     obj.contractorType = $("#contractorType-input option:selected").val();
+
+    if(obj.name == '' || obj.phoneNumber == '') {
+        alert('Не заполнены обязательные атрибуты');
+        return;
+    }
 
     let json = JSON.stringify(obj);
     $.ajax({

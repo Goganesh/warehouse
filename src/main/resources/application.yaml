@@ -1,6 +1,6 @@
 app:
   schedule:
-    checkAgreementPayments: "* /5 * * * *"
+    checkAgreementPayments: "* * 0/23 * * *"
 
 spring:
   datasource:

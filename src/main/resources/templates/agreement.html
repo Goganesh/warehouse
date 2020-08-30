@@ -7,56 +7,64 @@
 <div class="container-sm">
     <header th:insert="fragments/general.html :: header"> </header>
 
-    <!--Заголовок-->
-    <h4>Создание/Редактирование Договора</h4>
-
+    <h4 class="mb-3">Создание/Редактирование Договора</h4>
 
     <div class="row">
-        <label for="id-input" hidden>ID:</label>
-        <input id="id-input" name="id" type="hidden" value="-1" readonly="readonly"/>
+        <div class="container-sm">
+            <div class="mb-3">
+                <label for="id-input" hidden>ID:</label>
+                <input id="id-input" name="id" type="hidden" value="-1" readonly="readonly"/>
+            </div>
+
+            <div class="mb-3">
+                <label for="name-input" >Наименование:</label>
+                <input id="name-input" class="form-control" placeholder="Договор № ХХХ-ХХХ"
+                       name="name" type="text" required/>
+            </div>
+
+            <div class="mb-3">
+                <label for="agreementType-input">Тип соглашения:</label>
+                <select id="agreementType-input" class="custom-select d-block w-100"
+                        name="agreementType" required></select>
+            </div>
+
+            <div class="mb-3">
+                <label for="contractor-input">Контрагент:</label>
+                <select id="contractor-input" class="custom-select d-block w-100"
+                        name="contractor" required></select>
+            </div>
+
+            <div class="mb-3">
+                <label for="startDate-input">Дата подписания:</label>
+                <input id="startDate-input" class="form-control"
+                       name="startDate" type="date" required/>
+            </div>
+
+            <div class="mb-3">
+                <label for="user-input">Ответственный:</label>
+                <select id="user-input" class="custom-select d-block w-100"
+                        name="user" required></select>
+            </div>
+
+            <div class="mb-3">
+                <label for="price-input" >Сумма договора:</label>
+                <input id="price-input" class="form-control" placeholder="10000"
+                       name="price" type="number" required/>
+            </div>
+
+            <button onclick="saveAgreement()" class="btn btn-primary" type="submit">Сохранить</button>
+        </div>
     </div>
 
-    <div class="row">
-        <label for="name-input" >Наименование:</label>
-        <input id="name-input" name="name" type="text" required/>
-    </div>
 
-    <div class="row">
-        <label for="agreementType-input">Тип соглашения:</label>
-        <select id="agreementType-input" name="agreementType" required></select>
-    </div>
 
-    <div class="row">
-        <label for="contractor-input">Контрагент:</label>
-        <select id="contractor-input" name="contractor" required></select>
-    </div>
-
-    <div class="row">
-        <label for="startDate-input" >Дата подписания:</label>
-        <input id="startDate-input" name="startDate" type="date" required/>
-    </div>
-
-    <div class="row">
-        <label for="user-input" >Ответственный:</label>
-        <select id="user-input" name="contractor" required></select>
-    </div>
-
-    <div class="row">
-        <label for="price-input" >Сумма договора:</label>
-        <input id="price-input" name="price" type="number" required/>
-    </div>
-
-    <div class="row">
-        <button onclick="saveAgreement()" type="submit">Сохранить</button>
-    </div>
-
-    <h4>Платежи</h4>
+    <h4 class="mb-3">Платежи</h4>
     <button id="delete-button" type="button" class="btn btn-primary">Удалить</button>
     <button id="update-button" type="button" class="btn btn-primary">Редактировать</button>
     <button id="create-button" type="button" class="btn btn-primary" onclick="window.location.href = window.location.pathname + '/payments/-1';">Создать</button>
 
 
-    <table id="example" class="display" width="100%" cellspacing="0">
+    <table id="example" class="table table-striped" width="100%" cellspacing="0">
         <thead>
         <tr>
             <th>id</th>
