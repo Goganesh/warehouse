@@ -24,6 +24,7 @@ import java.util.Locale;
 public class AgreementDeserializer extends JsonDeserializer<Agreement> {
 
     private final AgreementTypeRepository agreementTypeRepository;
+    private final AgreementRepository agreementRepository;
     private final ContractorRepository contractorRepository;
     private final UserRepository userRepository;
 
@@ -48,16 +49,25 @@ public class AgreementDeserializer extends JsonDeserializer<Agreement> {
         AgreementType agreementType = agreementTypeRepository.findById(agreementTypeId).get();
         User user = userRepository.findById(userId).get();
 
-        Agreement agreement = Agreement.builder()
-                .name(name)
-                .startDate(startDate)
-                .price(price)
-                .contractor(contractor)
-                .agreementType(agreementType)
-                .user(user)
-                .build();
-        if(id!=-1)
-            agreement.setId(id);
+        Agreement agreement;
+        if(id!=-1) {
+            agreement = agreementRepository.findById(id).get();
+            agreement.setAgreementType(agreementType);
+            agreement.setContractor(contractor);
+            agreement.setName(name);
+            agreement.setPrice(price);
+            agreement.setStartDate(startDate);
+            agreement.setUser(user);
+        } else {
+            agreement = Agreement.builder()
+                    .name(name)
+                    .startDate(startDate)
+                    .price(price)
+                    .contractor(contractor)
+                    .agreementType(agreementType)
+                    .user(user)
+                    .build();
+        }
         return agreement;
     }
 }

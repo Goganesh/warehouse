@@ -56,24 +56,9 @@
         </div>
     </div>
 
+    <div id="payment">
 
-
-    <h4 class="mb-3">Платежи</h4>
-    <button id="delete-button" type="button" class="btn btn-primary">Удалить</button>
-    <button id="update-button" type="button" class="btn btn-primary">Редактировать</button>
-    <button id="create-button" type="button" class="btn btn-primary" onclick="window.location.href = window.location.pathname + '/payments/-1';">Создать</button>
-
-
-    <table id="example" class="table table-striped" width="100%" cellspacing="0">
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>Наименование</th>
-            <th>Дата платежа</th>
-            <th>Сумма платежа</th>
-        </tr>
-        </thead>
-    </table>
+    </div>
 
 
 </div>
@@ -90,53 +75,64 @@
         fillUsers();
         fillAgreement();
 
-        $('#example').DataTable( {
-            "ordering": false, // for disable order column
-            "paging": true, // for show paging
-            "processing": true, // for show progress bar
-            "serverSide": true, // for process server sid
-            "filter": true, // this is for disable filter (search box)
-            "orderMulti": false, // for disable multiple column at once
-            "ajax": {
-                "url": url2(),
-                "dataSrc": "data"
-            },
-            "columns": [
-                { "data": "id",
-                  "visible": false
+        let url = window.location.pathname;
+        let pathArray = url.split("/");
+        if(pathArray[2] != -1) {
+            $('#payment').append('<h4 class="mb-3">Платежи</h4>');
+            $('#payment').append('<button id="delete-button" type="button" class="btn btn-primary">Удалить</button>');
+            $('#payment').append('<button id="update-button" type="button" class="btn btn-primary">Редактировать</button>');
+            $('#payment').append('<button id="create-button" type="button" class="btn btn-primary" onclick="window.location.href = window.location.pathname + \'/payments/-1\';">Создать</button>');
+            $('#payment').append('<table id="example" class="table table-striped" width="100%" cellspacing="0"><thead><tr><th>id</th><th>Наименование</th><th>Дата платежа</th><th>Сумма платежа</th></tr></thead></table>');
+
+            $('#example').DataTable( {
+                "ordering": false, // for disable order column
+                "paging": true, // for show paging
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server sid
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "ajax": {
+                    "url": url2(),
+                    "dataSrc": "data"
                 },
-                { "data": "name" },
-                { "data": "date" },
-                { "data": "amount" }
-            ]
-        });
-
-        var table = $('#example').DataTable();
-
-        $('#example tbody').on( 'click', 'tr', function () {
-            if ( $(this).hasClass('selected') ) {
-                $(this).removeClass('selected');
-            }
-            else {
-                table.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-            }
-        } );
-
-        $('#update-button').click( function () {
-            var ids = $.map(table.row('.selected').data(), function (item) {
-                return item
+                "columns": [
+                    { "data": "id",
+                      "visible": false
+                    },
+                    { "data": "name" },
+                    { "data": "date" },
+                    { "data": "amount" }
+                ]
             });
-            window.location.href = (window.location.pathname + "/payments/" + ids[0]);
-        } );
 
-        $('#delete-button').click( function () {
-            var ids = $.map(table.row('.selected').data(), function (item) {
-                return item
+
+            var table = $('#example').DataTable();
+
+            $('#example tbody').on( 'click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
             });
-            deletePayment(ids[0]);
-            window.location.href = window.location.pathname;
-        });
+
+            $('#update-button').click( function () {
+                var ids = $.map(table.row('.selected').data(), function (item) {
+                    return item
+                });
+                window.location.href = (window.location.pathname + "/payments/" + ids[0]);
+            });
+
+            $('#delete-button').click( function () {
+                var ids = $.map(table.row('.selected').data(), function (item) {
+                    return item
+                });
+                deletePayment(ids[0]);
+                window.location.href = window.location.pathname;
+            });
+        }
     });
 </script>
 </body>
